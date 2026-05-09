@@ -1,0 +1,71 @@
+{
+  "name": "Dev — Go · Rust · Python · tmux · Claude Code",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+
+  // ── Dev Container Features ────────────────────────────────────────────────
+  // Claude Code and Codex CLI are installed directly in the Dockerfile via npm,
+  // so no features are needed here. Add other features as required.
+  "features": {},
+
+  // ── VS Code settings & extensions ────────────────────────────────────────
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "workbench.colorTheme": "Dark 2026",
+        "telemetry.telemetryLevel": "off",
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.formatOnSave": true,
+        "go.toolsManagement.autoUpdate": true,
+        "rust-analyzer.check.command": "clippy",
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter"
+        }
+      },
+      "extensions": [
+        // Claude Code
+        "anthropic.claude-code",
+        // Go
+        "golang.go",
+        // Rust
+        "rust-lang.rust-analyzer",
+        // Python
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        // General quality-of-life
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  },
+
+  // ── Container environment ─────────────────────────────────────────────────
+  "containerEnv": {
+    // Opt out of Claude Code telemetry inside the container.
+    // Remove or set to "0" if you prefer to leave telemetry on.
+    "CLAUDE_CODE_DISABLE_TELEMETRY": "1",
+    // Disable auto-updater so builds stay reproducible.
+    // Remove this line if you want Claude Code to self-update.
+    "DISABLE_AUTOUPDATER": "1",
+    // Expose host API keys (set these in your host shell environment first).
+    "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}",
+    "OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}"
+  },
+
+  // ── Persistent volumes ────────────────────────────────────────────────────
+  // Keeps Claude Code auth / config across container rebuilds.
+  "mounts": [
+    "source=claude-code-config-${devcontainerId},target=/home/coder/.claude,type=volume"
+  ],
+
+  // Coder envbuilder does not currently project customizations.vscode into
+  // code-server's user-data directory, so apply them explicitly at startup.
+  "postStartCommand": "/usr/local/bin/apply-vscode-customizations",
+
+  // ── Remote user ───────────────────────────────────────────────────────────
+  "remoteUser": "coder"
+}

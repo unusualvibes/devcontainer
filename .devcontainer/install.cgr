@@ -1,0 +1,40 @@
+target "build" local:
+
+  # ── No dependencies — run in parallel ────────────────────────────────────────
+
+  [install rust]:
+    run $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --default-toolchain $RUST_VERSION
+
+  [install claude and codex]:
+    run $ npm install -g @anthropic-ai/claude-code @openai/codex
+
+  [install gopls]:
+    run $ go install golang.org/x/tools/gopls@latest
+
+  [install dlv]:
+    run $ go install github.com/go-delve/delve/cmd/dlv@latest
+
+  [install goimports]:
+    run $ go install golang.org/x/tools/cmd/goimports@latest
+
+  [install golangci-lint]:
+    run $ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+  [install python tools]:
+    run $ pipx install uv && pipx install ruff && pipx install black && pipx install mypy && pipx install pytest && pipx install ipython
+
+  [install starship]:
+    run $ curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir $HOME/.local/bin
+
+  [clone tpm]:
+    run $ git clone --depth=1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+
+  # ── Depends on rust ───────────────────────────────────────────────────────────
+
+  [add rust components]:
+    first [install rust]
+    run $ rustup component add clippy rustfmt rust-src
+
+  [install cargo-watch]:
+    first [add rust components]
+    run $ cargo install cargo-watch
