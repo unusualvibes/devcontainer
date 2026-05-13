@@ -10,10 +10,6 @@ ARG GO_VERSION=1.24.3
 ARG RUST_VERSION=stable
 ARG NODE_VERSION=22
 
-ENV GO_VERSION=${GO_VERSION}
-ENV RUST_VERSION=${RUST_VERSION}
-ENV NODE_VERSION=${NODE_VERSION}
-
 # ── System utilities ──────────────────────────────────────────────────────────
 RUN apt-get update && apt-get upgrade --yes --no-install-recommends --no-install-suggests && \
     apt-get install --yes --no-install-recommends --no-install-suggests \

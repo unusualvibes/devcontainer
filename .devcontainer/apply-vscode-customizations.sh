@@ -72,7 +72,7 @@ install_code_server_extensions() {
 }
 
 sudo ssh-keygen -A 2>/dev/null || true
-
+sudo sysctl -w fs.inotify.max_user_watches=524288
 merge_settings "$HOME/.local/share/code-server/User/settings.json"
 merge_settings "$HOME/.vscode-server/data/Machine/settings.json"
 merge_settings "$HOME/.vscode-server-insiders/data/Machine/settings.json"

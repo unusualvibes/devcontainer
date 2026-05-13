@@ -5,11 +5,6 @@
     "context": "."
   },
 
-  // ── Dev Container Features ────────────────────────────────────────────────
-  // Claude Code and Codex CLI are installed directly in the Dockerfile via npm,
-  // so no features are needed here. Add other features as required.
-  "features": {},
-
   // ── VS Code settings & extensions ────────────────────────────────────────
   "customizations": {
     "vscode": {
