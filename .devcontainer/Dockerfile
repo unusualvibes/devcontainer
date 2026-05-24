@@ -16,7 +16,7 @@ RUN apt-get update && apt-get upgrade --yes --no-install-recommends --no-install
     vim tmux zsh build-essential pkg-config libssl-dev \
     curl wget git ca-certificates unzip jq locales sudo \
     openssh-client openssh-server iproute2 iputils-ping traceroute \
-    python3 python3-venv python3-pip pipx rsync \
+    python3 python3-venv python3-pip pipx rsync shellcheck \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
