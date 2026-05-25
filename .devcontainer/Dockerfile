@@ -13,7 +13,7 @@ ARG NODE_VERSION=22
 # ── System utilities ──────────────────────────────────────────────────────────
 RUN apt-get update && apt-get upgrade --yes --no-install-recommends --no-install-suggests && \
     apt-get install --yes --no-install-recommends --no-install-suggests \
-    vim tmux zsh build-essential pkg-config libssl-dev \
+    less vim tmux zsh build-essential pkg-config libssl-dev \
     curl wget git ca-certificates unzip jq locales sudo \
     openssh-client openssh-server iproute2 iputils-ping traceroute \
     python3 python3-venv python3-pip pipx rsync shellcheck \
