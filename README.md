@@ -1,6 +1,27 @@
 # devcontainer
 
-A development container configuration targeting [Coder](https://coder.com) with [envbuilder](https://github.com/coder/envbuilder). The `devcontainer.json` and `Dockerfile` are present for IDE compatibility, but the primary runtime is envbuilder — not Docker Desktop or the VS Code Dev Containers extension.
+A development container configuration targeting [Coder](https://coder.com). It can be built at workspace-start time with [envbuilder](https://github.com/coder/envbuilder), or pulled as a prebuilt inner image by [envbox](https://github.com/coder/envbox).
+
+## Published image
+
+Every push to `main` publishes a multi-platform image for `linux/amd64` and `linux/arm64` to:
+
+```text
+ghcr.io/unusualvibes/devcontainer:latest
+```
+
+Pull requests build both platforms without publishing them. Version tags such as `v1.2.3` additionally publish `1.2.3` and `1.2`, and every published build gets a `sha-...` tag. Use a version or SHA tag instead of `latest` when reproducibility matters.
+
+The first published package may be private. In the repository's package settings, make it public for unauthenticated Kubernetes pulls, or configure an `imagePullSecret` on the workspace Pod.
+
+For the Coder envbox template, replace the inner-image environment variable with:
+
+```hcl
+env {
+  name  = "CODER_INNER_IMAGE"
+  value = "ghcr.io/unusualvibes/devcontainer:latest"
+}
+```
 
 ## What's inside
 
