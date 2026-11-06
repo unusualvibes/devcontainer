@@ -35,7 +35,7 @@ env {
 | Python tools | `uv`, `ruff`, `black`, `mypy`, `pytest`, `ipython` |
 | Node globals | `claude-code`, `codex` |
 | Shell | zsh + [Starship](https://starship.rs) prompt, tmux + [tpm](https://github.com/tmux-plugins/tpm) |
-| Extras | `vim`, `rsync`, `jq`, `openssh-client/server`, `iproute2` |
+| Extras | `vim`, `rsync`, `jq`, `gh`, `openssh-client/server`, `iproute2` |
 
 **VS Code / code-server extensions:** Claude Code, Go, Rust Analyzer, Python + Black + Pylint, Git Graph, GitLens, Code Spell Checker.
 
@@ -55,6 +55,7 @@ Set these in your host shell (or Coder template) before starting the workspace:
 |---|---|
 | `ANTHROPIC_API_KEY` | Passed into the container for Claude Code |
 | `OPENAI_API_KEY` | Passed into the container for Codex |
+| `GH_TOKEN` | Passed into the container so `gh` is authenticated without `gh auth login` |
 
 Telemetry and auto-updates for Claude Code are disabled by default (`CLAUDE_CODE_DISABLE_TELEMETRY=1`, `DISABLE_AUTOUPDATER=1`). Remove those lines from `devcontainer.json` if you want them enabled.
 
